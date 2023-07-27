@@ -1,0 +1,33 @@
+name: Update PR Description
+on:
+  pull_request:
+    types: [openend, synchronize]
+
+jobs:
+  update_description:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Update PR Description
+        uses: actions/github-script@v5
+        with:
+          script: |
+            const { data: pullRequest } = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              number: context.payload.pull_request.number,
+            });
+
+            const updatedDescription = pullRequest.body + '\n Here is some text!';
+
+            await github.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              number: context.payload.pull_request.number,
+              body: updatedDescription,
+            })
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
