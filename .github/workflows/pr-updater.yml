@@ -12,7 +12,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Payload Debugging
-        run: echo "${{ toJson(github.event) }}"
+        uses: actions/github-script@v5
+        with:
+          script: |
+            echo "${{ toJson(github.event) }}"
+            echo "${{ toJson(context.repo) }}"
 
       - name: Update PR Description
         uses: actions/github-script@v5
@@ -24,7 +28,7 @@ jobs:
               pull_number: context.payload.pull_request.number,
             });
 
-            const updatedDescription = pullRequest.body + '\n Some additional text!';
+            const updatedDescription = pullRequest.body + '\n Some additional text.';
 
             // use regex? no need for sed because we're already in javascript
             // don't need portability of sed:
