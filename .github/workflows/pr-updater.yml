@@ -16,7 +16,7 @@ jobs:
         with:
           script: |
             echo "${{ toJson(github.event) }}"
-            echo "${{ toJson(context.repo) }}"
+            # echo "${{ toJson(context.repo) }}"
 
       - name: Update PR Description
         uses: actions/github-script@v5
