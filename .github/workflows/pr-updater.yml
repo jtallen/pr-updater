@@ -34,10 +34,10 @@ jobs:
             // - lower requirements to run
             // - requires *less* to run/ increases performance
 
-            await github.pulls.update({
+            await github.rest.pulls.update({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              number: context.payload.pull_request.number,
+              pull_number: context.payload.pull_request.number,
               body: updatedDescription,
             })
         env:
