@@ -11,11 +11,11 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Payload Debugging
-        uses: actions/github-script@v5
-        with:
-          script: |
-            echo "${{ toJson(github.event) }}"
+      # - name: Payload Debugging
+      #   uses: actions/github-script@v5
+      #   with:
+      #     script: |
+      #       echo "${{ toJson(github.event) }}"
 
       - name: Update PR Description
         uses: actions/github-script@v5
