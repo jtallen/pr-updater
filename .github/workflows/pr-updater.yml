@@ -1,7 +1,7 @@
 name: Update PR Description
 on:
   pull_request:
-    types: [opened, synchronize]
+    types: [opened, edited]
 
 jobs:
   update_description:
@@ -21,10 +21,15 @@ jobs:
             const { data: pullRequest } = await github.rest.pulls.get({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              number: context.payload.pull_request.number,
+              pull_number: context.payload.pull_request.number,
             });
 
             const updatedDescription = pullRequest.body + '\n Some additional text!';
+
+            // use regex? no need for sed because we're already in javascript
+            // don't need portability of sed:
+            // - lower requirements to run
+            // - requires *less* to run/ increases performance
 
             await github.pulls.update({
               owner: context.repo.owner,
