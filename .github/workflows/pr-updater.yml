@@ -27,7 +27,8 @@ jobs:
               pull_number: context.payload.pull_request.number,
             });
 
-            const updatedDescription = pullRequest.body.replace('/([a-z]+)-(\d+)/', (match) => match.toUpperCase());
+            // const updatedDescription = pullRequest.body.replace('/([a-z]+)-(\d+)/', (match) => match.toUpperCase());
+            const updatedDescription = pullRequest.body.replace('/([a-z]+)-(\d+)/', 'frimble');
 
             // use regex? no need for sed because we're already in javascript
             // don't need portability of sed:
